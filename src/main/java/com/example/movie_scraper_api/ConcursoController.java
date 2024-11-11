@@ -7,6 +7,7 @@ import org.jsoup.select.Elements;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -20,11 +21,11 @@ import java.util.Map;
 public class ConcursoController {
 
     @GetMapping
-    public List<Map<String, String>> getConcursos() {
+    public List<Map<String, String>> getConcursos(@RequestParam String uf) {
         List<Map<String, String>> concursos = new ArrayList<>();
 
         try {
-            Document doc = Jsoup.connect("https://www.concursosnobrasil.com/concursos/rj").get();
+            Document doc = Jsoup.connect("https://www.concursosnobrasil.com/concursos/"+uf).get();
             Elements rows = doc.select("tr"); 
 
             for (Element row : rows) {
